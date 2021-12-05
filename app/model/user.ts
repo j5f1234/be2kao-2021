@@ -1,4 +1,4 @@
-import {Model, INTEGER,STRING,DATE} from 'sequelize'
+import {Model, INTEGER,STRING,BOOLEAN,DATE} from 'sequelize'
 import { Application } from 'egg'
 
 class User extends Model {
@@ -6,6 +6,7 @@ class User extends Model {
 	name: string
 	number: number
 	password: string
+	admin: boolean
 	readonly updatedAt: Date
 	readonly createdAt: Date
 }
@@ -16,6 +17,7 @@ export default ( app: Application) =>{
 		name: STRING,
 		number: INTEGER,
 		password: STRING,
+		admin: BOOLEAN,
     updatedAt: DATE,
     createdAt: DATE
 	}, {
