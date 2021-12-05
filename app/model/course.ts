@@ -27,4 +27,5 @@ export default ( app: Application) =>{
 		modelName: 'course',
 		underscored: true
 	})
+	return Course
 }

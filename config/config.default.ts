@@ -16,6 +16,16 @@ export default (appInfo: EggAppInfo) => {
     password: '123456'
   };
 
+  config.validate = {
+    convert: true
+  };
+
+  config.security = {
+    csrf: {
+      enable: false
+    }
+  };
+
   // add your egg config in here
   config.middleware = [];
 

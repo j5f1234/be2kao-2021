@@ -4,7 +4,7 @@ import { Application } from 'egg'
 class User extends Model {
 	id: number
 	name: string
-	number: number
+	number: string
 	password: string
 	admin: boolean
 	readonly updatedAt: Date
@@ -15,7 +15,7 @@ export default ( app: Application) =>{
 	User.init({
 		id: {type: INTEGER, primaryKey: true, autoIncrement: true},
 		name: STRING,
-		number: INTEGER,
+		number: STRING,
 		password: STRING,
 		admin: BOOLEAN,
     updatedAt: DATE,
@@ -25,4 +25,5 @@ export default ( app: Application) =>{
 		modelName: 'user',
 		underscored: true
 	})
+	return User
 }

@@ -25,4 +25,5 @@ export default ( app: Application) =>{
 		modelName: 'choose',
 		underscored: true
 	})
+	return Choose
 }
