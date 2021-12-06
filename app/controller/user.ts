@@ -3,11 +3,20 @@ import { Controller } from 'egg';
 export default class UserController extends Controller {
   public async register() {
     const { ctx } = this;
-    ctx.validate({
-			name: 'string',
-			number: 'string',
-			password: 'string'
-    })
+		try {
+			ctx.validate({
+				name: 'string',
+				number: 'string',
+				password: 'string'
+			})
+		} catch(e){
+      ctx.body = {
+        success: false,
+        error: '参数错误'
+      }
+      return
+    }
+
 		const {name,number,password} = ctx.request.body	
 		let isRegister = await ctx.model.User.findOne({where: {number: number}})
 		if (isRegister) {
@@ -32,10 +41,19 @@ export default class UserController extends Controller {
 
 	public async login() {
 		const {ctx} = this
-		ctx.validate({
-			number: 'string',
-			password: 'string'
-    })
+		try {
+			ctx.validate({
+				number: 'string',
+				password: 'string'
+			})
+		} catch(e){
+      ctx.body = {
+        success: false,
+        error: '参数错误'
+      }
+      return
+    }
+		
 		const {number,password} = ctx.request.body	
 		let isLogin = await ctx.model.User.findOne({
 			where: {number: number},

@@ -7,7 +7,7 @@ export default async function(ctx: Context, next: ()=> Promise<any>){
 	else {
 		ctx.body = {
 			success: false,
-			error: '该用户未登录'
+			error: '该用户不存在或未登录',
 		}
 	}
 }

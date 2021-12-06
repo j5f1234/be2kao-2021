@@ -2,10 +2,12 @@
 // Do not modify this file!!!!!!!!!
 
 import 'egg';
+import ExportIsAdmin from '../../../app/middleware/isAdmin';
 import ExportIsOnline from '../../../app/middleware/isOnline';
 
 declare module 'egg' {
   interface IMiddleware {
+    isAdmin: typeof ExportIsAdmin;
     isOnline: typeof ExportIsOnline;
   }
 }
