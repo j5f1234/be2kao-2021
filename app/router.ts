@@ -8,12 +8,18 @@ export default (app: Application) => {
   //user
   router.post('/api/register', controller.user.register);
   router.post('/api/login', controller.user.login);
+  router.post('/api/course/select',isOnline, controller.course.courseChoose)
+
+  router.get('/api/course', isOnline,controller.user.courseInfo)
 
   router.delete('/api/logout', isOnline, controller.user.logout);
   
   //admin
-  router.post('/api/admin/addcourse',isOnline,isAdmin, controller.admin.addcourse)
+  router.post('/api/admin/addcourse',isOnline,isAdmin, controller.admin.addCourse)
+  router.post('/api/admin/changeinfo',isOnline,isAdmin,controller.admin.changeCourseInfo)
 
-  router.delete('/api/admin/delete/course/:id',isOnline,isAdmin, controller.admin.deletecourse)
+  router.get('/api/admin/userlist',isOnline,isAdmin,controller.admin.userList)
+
+  router.delete('/api/admin/delete/course/:id',isOnline,isAdmin, controller.admin.deleteCourse)
 
 };

@@ -53,7 +53,7 @@ export default class UserController extends Controller {
       }
       return
     }
-		
+
 		const {number,password} = ctx.request.body	
 		let isLogin = await ctx.model.User.findOne({
 			where: {number: number},
@@ -122,5 +122,31 @@ export default class UserController extends Controller {
 			}
 		}
 		ctx.session.id = null
+	}
+
+	public async courseInfo() {
+		const {ctx} = this
+		const {page,limit} = ctx.query
+		if (page || limit){
+			let page2 = parseInt(page)
+			let limit2 = parseInt(limit)
+			const data = await ctx.model.Course.findAndCountAll({
+				limit: limit2,
+				offset: (page2-1) * limit2
+			})
+			ctx.body = {
+				success: true,
+				data: {
+					total: data.count,
+					list: data.rows
+				}
+			}
+		} 
+		else {
+			ctx.body = {
+				success: false,
+				error: '参数错误'
+			}
+		}
 	}
 }
