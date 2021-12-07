@@ -10,6 +10,8 @@ class Course extends Model {
 	number: number
 	readonly updatedAt: Date
 	readonly createdAt: Date
+
+	static associate: () => any
 }
 
 export default ( app: Application) =>{
@@ -27,5 +29,10 @@ export default ( app: Application) =>{
 		modelName: 'course',
 		underscored: true
 	})
+
+	Course.associate = ()=>{
+		app.model.Course.belongsTo(app.model.Choose, {foreignKey: 'id', as: 'choose'})
+	}
+
 	return Course
 }

@@ -4,18 +4,20 @@ import { Application } from 'egg'
 class Choose extends Model {
 	id: number
 	courseId: number
-  userName: number
+  userId: number
   day: number
   time: number
 	readonly updatedAt: Date
 	readonly createdAt: Date
+
+	static associate: () => any
 }
 
 export default ( app: Application) =>{
 	Choose.init({
 		id: {type: INTEGER, primaryKey: true, autoIncrement: true},
 		courseId: INTEGER,
-		userName: INTEGER,
+		userId: INTEGER,
 		day: INTEGER,
 		time: INTEGER,
     updatedAt: DATE,
@@ -25,5 +27,9 @@ export default ( app: Application) =>{
 		modelName: 'choose',
 		underscored: true
 	})
+	Choose.associate = ()=>{
+		app.model.Choose.hasMany(app.model.Course, {foreignKey: 'id', as: 'course'})
+	}
+
 	return Choose
 }

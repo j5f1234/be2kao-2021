@@ -13,7 +13,7 @@ export default (app: Application) => {
   router.get('/api/course', isOnline,controller.user.courseInfo)
 
   router.delete('/api/logout', isOnline, controller.user.logout);
-  
+  router.delete('/api/course/delete/:id',isOnline, controller.course.courseDropOut)
   //admin
   router.post('/api/admin/addcourse',isOnline,isAdmin, controller.admin.addCourse)
   router.post('/api/admin/changeinfo',isOnline,isAdmin,controller.admin.changeCourseInfo)
