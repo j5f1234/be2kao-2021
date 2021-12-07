@@ -127,7 +127,7 @@ export default class UserController extends Controller {
 	public async courseInfo() {
 		const {ctx} = this
 		const {page,limit} = ctx.query
-		if (page || limit){
+		if (page && limit){
 			let page2 = parseInt(page)
 			let limit2 = parseInt(limit)
 			const data = await ctx.model.Course.findAndCountAll({

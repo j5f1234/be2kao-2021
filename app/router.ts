@@ -11,6 +11,7 @@ export default (app: Application) => {
   router.post('/api/course/select',isOnline, controller.course.courseChoose)
 
   router.get('/api/course', isOnline,controller.user.courseInfo)
+  router.get('/api/schedule', isOnline,controller.course.scheduldInfo)
 
   router.delete('/api/logout', isOnline, controller.user.logout);
   router.delete('/api/course/delete/:id',isOnline, controller.course.courseDropOut)

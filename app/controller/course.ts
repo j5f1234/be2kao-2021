@@ -102,6 +102,46 @@ export default class CourseController extends Controller {
 				error: '参数不能为空'
 			}
 		}
-		
+	}
+
+	public async scheduldInfo() {
+		const{ctx} = this
+		const {page,limit} = ctx.query
+		if (page && limit) {
+			let page2 = parseInt(page)
+			let limit2 = parseInt(limit)
+			const data = await ctx.model.Choose.findAndCountAll({
+				where: {userId: ctx.session.id},
+				limit: limit2,
+				offset: (page2-1) * limit2,
+				include: [{
+					model: ctx.model.Course,
+					as: 'course',
+					attributes: ['id','name','day','time','capacity','number'],
+					required: false
+				}] 
+			})
+			if(data){
+				ctx.body = {
+					success: true,
+					data: {
+						total: data.count,
+						list: data.rows
+					}
+				}
+			}
+			else {
+				ctx.body = {
+					success: false,
+					error: '参数错误'
+				}
+			}
+		}
+		else{
+			ctx.body = {
+				success: false,
+				error: '未查到选课记录'
+			}
+		}
 	}
 }
