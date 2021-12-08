@@ -112,6 +112,7 @@ export default class CourseController extends Controller {
 			let limit2 = parseInt(limit)
 			const data = await ctx.model.Choose.findAndCountAll({
 				where: {userId: ctx.session.id},
+				attributes: ['id'],
 				limit: limit2,
 				offset: (page2-1) * limit2,
 				include: [{
@@ -121,6 +122,7 @@ export default class CourseController extends Controller {
 					required: false
 				}] 
 			})
+
 			if(data){
 				ctx.body = {
 					success: true,
@@ -133,14 +135,14 @@ export default class CourseController extends Controller {
 			else {
 				ctx.body = {
 					success: false,
-					error: '参数错误'
+					error: '未查到选课记录'
 				}
 			}
 		}
 		else{
 			ctx.body = {
 				success: false,
-				error: '未查到选课记录'
+				error: '参数错误'
 			}
 		}
 	}

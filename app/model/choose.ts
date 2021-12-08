@@ -29,6 +29,7 @@ export default ( app: Application) =>{
 	})
 	Choose.associate = ()=>{
 		app.model.Choose.belongsTo(app.model.Course, {foreignKey: 'courseId', as: 'course'})
+		app.model.Choose.belongsTo(app.model.User, {foreignKey: 'userId', as: 'user'})
 	}
 
 	return Choose

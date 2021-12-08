@@ -20,6 +20,8 @@ export default (app: Application) => {
   router.post('/api/admin/changeinfo',isOnline,isAdmin,controller.admin.changeCourseInfo)
 
   router.get('/api/admin/userlist',isOnline,isAdmin,controller.admin.userList)
+  router.get('/api/admin/achedule/user',isOnline,isAdmin,controller.admin.userScheduldInfo)
+  router.get('/api/admin/schedule/course',isOnline,isAdmin,controller.admin.courseScheduleInfo)
 
   router.delete('/api/admin/delete/course/:id',isOnline,isAdmin, controller.admin.deleteCourse)
 

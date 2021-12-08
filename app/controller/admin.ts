@@ -193,4 +193,92 @@ export default class AdminController extends Controller {
 		}
 
 	}
+
+	public async userScheduldInfo() {
+		const{ctx} = this
+		const {userId,page,limit} = ctx.query
+		if (userId && page && limit) {
+			let userId2 = parseInt(userId)
+			let page2 = parseInt(page)
+			let limit2 = parseInt(limit)
+			const data = await ctx.model.Choose.findAndCountAll({
+				where: {userId: userId2},
+				attributes: ['id'],
+				limit: limit2,
+				offset: (page2-1) * limit2,
+				include: [{
+					model: ctx.model.Course,
+					as: 'course',
+					attributes: ['id','name','day','time','capacity','number'],
+					required: false
+				}] 
+			})
+
+			if(data.count != 0){
+				ctx.body = {
+					success: true,
+					data: {
+						total: data.count,
+						list: data.rows
+					}
+				}
+			}
+			else {
+				ctx.body = {
+					success: false,
+					error: '未查到选课记录'
+				}
+			}
+		}
+		else{
+			ctx.body = {
+				success: false,
+				error: '参数错误'
+			}
+		}
+	}
+
+	public async courseScheduleInfo() {
+		const {ctx} = this
+		const {courseId,page,limit} = ctx.query
+		if (courseId && page && limit) {
+			let courseId2 = parseInt(courseId)
+			let page2 = parseInt(page)
+			let limit2 = parseInt(limit)
+			const data = await ctx.model.Choose.findAndCountAll({
+				where: {courseId: courseId2},
+				attributes: ['id','courseId','userId'],
+				limit: limit2,
+				offset: (page2-1) * limit2,
+				include: [{
+					model: ctx.model.User,
+					as: 'user',
+					attributes: ['number','name'],
+					required: false
+				}] 
+			})
+
+			if(data.count != 0){
+				ctx.body = {
+					success: true,
+					data: {
+						total: data.count,
+						list: data.rows
+					}
+				}
+			}
+			else {
+				ctx.body = {
+					success: false,
+					error: '未查到选课记录'
+				}
+			}
+		}
+		else{
+			ctx.body = {
+				success: false,
+				error: '参数错误'
+			}
+		}
+	}
 }
