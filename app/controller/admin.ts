@@ -6,7 +6,9 @@ export default class AdminController extends Controller {
 		try {
 			ctx.validate({
 				name: 'string',
-				capacity: 'number'
+				capacity: 'number',
+				day: 'number',
+				time: 'number'
 			})
 		} catch(e){
       ctx.body = {
@@ -16,8 +18,8 @@ export default class AdminController extends Controller {
       return
     }
 
-		const {name,capacity} = ctx.request.body
-		let course = await ctx.model.Course.create({name,capacity: capacity})
+		const {name,capacity,day,time} = ctx.request.body
+		let course = await ctx.model.Course.create({name:name,capacity: capacity,day:day,time:time})
 		ctx.body = {
 			success: true,
 			data: {
