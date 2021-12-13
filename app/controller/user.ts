@@ -16,7 +16,8 @@ export default class UserController extends Controller {
       }
       return
     }
-
+		
+		const crypto = require('crypto');
 		const {name,number,password} = ctx.request.body	
 		let isRegister = await ctx.model.User.findOne({where: {number: number}})
 		if (isRegister) {
@@ -26,7 +27,8 @@ export default class UserController extends Controller {
 			}
 		}
 		else{
-			let user = await ctx.model.User.create({name,number,password,admin: 0})
+			let password2 = crypto.createHash('md5').update(password).digest('hex');
+			let user = await ctx.model.User.create({name,number,password:password2,admin: 0})
 			ctx.body = {
 				success: true,
 				data: {
@@ -41,6 +43,7 @@ export default class UserController extends Controller {
 
 	public async login() {
 		const {ctx} = this
+		const crypto = require('crypto');
 		try {
 			ctx.validate({
 				number: 'string',
@@ -60,7 +63,8 @@ export default class UserController extends Controller {
 		})
 
 		if (isLogin) {
-			if (isLogin.password == password) {
+			let passwordnew = crypto.createHash('md5').update(password).digest('hex');
+			if (isLogin.password == passwordnew) {
 				if (ctx.session.id && ctx.session.id != isLogin.id){
 					ctx.body = {
 						success: false,
